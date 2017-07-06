@@ -1,0 +1,117 @@
+<html>
+   <head>
+      <title>Angular JS Crud</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="css/validation.css"/>
+	  <script src="js/crud.module.js"></script>
+	  <script src="controller/crud.controller.js"></script>
+	  <script src="service/crud.service.js"></script>
+	  <script src="directive/crud.directive.js"></script>
+   </head>
+   <body>
+   <form ng-app = "mainApp" ng-controller = "studentController" name="Crudform" novalidate>
+      <h2>AngularJS Crud Application</h2>
+      <div class="form-group">
+         <table border = "1" cellspacing="2">
+            <tr>
+			<td>
+              Photo
+			</td><td>
+              First Name 
+			</td>
+			<td>
+              Last Name 
+			</td>	
+            <td>
+              Fees
+			</td><td>
+              Email
+			</td>
+			<td>
+			Options
+			</td>
+            </tr>
+            <tr ng-repeat = "student in students">
+				 <td> <img ng-src="{{ student.image }}"/></td>
+				 <td>{{ student.firstName }}</td>
+				 <td>{{ student.lastName }}</td>
+				 <td>{{ student.fees }}</td>
+				 <td>{{ student.email }}</td>
+				 <td>  <input type="button" value="Delete" ng-click="DeleteData(student)" /></td>  
+				 <td>  <input type="button" value="Edit" ng-click="EditData(student)" /></td>  
+			</tr>  
+
+         </table>
+		 <br>
+		 <table>
+		 <tr>
+		 <td> <label class="control-label">First Name:</label> </td>
+		 <td><input ng-minlength="5" type="text" name="firstName" ng-model="newStudents.firstName" required></td>
+		 <span style="color:red" ng-show="Crudform.firstName.$dirty && Crudform.firstName.$invalid">
+		<span ng-show="Crudform.firstName.$error.required">Please enter your first name.</span>
+		<span ng-show="Crudform.firstName.$error.minlength">Please enter full name.</span>
+		</span>
+		 </tr>
+		 <tr>
+		 <td> <label class="control-label">Last Name:</label></td> 
+		 <td><input type="text" name="lastname" required ng-model="newStudents.lastName"></td>
+		 <span style="color:red" ng-show="Crudform.lastname.$dirty && Crudform.lastname.$invalid">
+		<span ng-show="Crudform.lastname.$error.required">Please enter your last name.</span>
+		</span>
+		 </tr>
+		 <tr>
+		 <td> <label class="control-label">Fees:</label></td> 
+		 <td><input type="number" min="0" name="fees" ng-model="newStudents.fees"></td>
+		 </tr>
+		 <tr>
+		 <td><label class="control-label">Enter Quarter:</label></td> 
+		 <td><input type="number" min="1" max="4" name="quarter" ng-model="newStudents.quarter"></td>
+			<span ng-show="Crudform.quarter.$error.maxlength">Please enter quarter less than five</span>
+			<td>	<button ng-click = "calculateFees()">Total Fees</button></td>
+			
+			<td><span>Total Fees:Rs. {{fees}}</span></td>
+		</tr>
+		 <tr>
+		 <td> <label class="control-label">Email:</label></td> 
+		 <td><input type="email" name="email" ng-model="newStudents.email"></td>
+		  <span style="color:red" ng-show="Crudform.email.$dirty && Crudform.email.$invalid">
+		<span ng-show="Crudform.email.$error.required">Please enter your email.</span>
+		<span ng-show="Crudform.email.$error.email">Please enter valid email.Ex - John@gmail.com</span>
+		</span>
+		 </tr>
+		 	 <tr>
+		 <td> <label class="control-label">Watch:</label></td> 
+		 <td><input type="text" name="email" ng-model="email"></td>
+		 </tr>
+		 <tr>
+		 <td> <label class="control-label">Upload Image:</label></td> 
+		 <td><input type="file" name="image" for="image" id="image" ng-model="newStudents.image"></td>
+		  <td><input type="button" value="Upload" ng-click="UploadImage()" /></td> 
+		</span>
+		 </tr>
+		 <tr><td><input type="button" value="Update" ng-click="UpdateData()" /></td> 
+		 <td><input type="submit" value="AddNew" ng-click="AddData()" 
+		 ng-disabled="Crudform.firstName.$dirty && Crudform.firstName.$invalid || Crudform.email.$dirty && Crudform.email.$invalid || Crudform.mobile.$dirty && Crudform.mobile.$invalid || Crudform.$invalid"
+		 /></td></tr>  
+		 </table>  
+		  <div class= "check-directive"></div>
+		 <check-directive></check-directive>
+		 <div check-directive></div>
+		
+      </div>
+	  <article ng-app="booksInventoryApp">
+  <section ng-controller="booksCtrl">
+    <table border="2">
+	<tr ng-repeat="book in data.books">
+	<td>{{ book.id }}</td>
+	<td>{{ book.name }}</td>
+	<td> {{ book.author }}</td>
+	<td><img ng-src="{{ book.url }}"></td>
+	</tr>
+	</table>
+  </section>
+</article>
+    </form>
+   </body>
+</html>
